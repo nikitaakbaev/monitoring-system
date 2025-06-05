@@ -1,6 +1,6 @@
 <x-layout>
     <div class="d-flex justify-content-center align-items-center h-100">
-        <form class="col-sm-7 col-lg-4 col-md-6 col-12 p-3 d-flex flex-column" action="{{ Route('authUser') }}"
+        <form class="col-sm-7 col-lg-4 col-md-6 col-12 p-3 d-flex flex-column border rounded-3" action="{{ Route('authUser') }}"
               method="POST">
             @csrf
             @method('POST')

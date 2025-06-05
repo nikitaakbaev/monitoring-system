@@ -1,6 +1,6 @@
 <x-layout>
     <div class="d-flex justify-content-center align-items-center h-100">
-        <form action="{{Route('createUserAccount')}}" method="POST" class="col-sm-7 col-md-6 col-lg-4 col-12 p-3 d-flex flex-column border rounded-3">
+        <form action="{{Route('createUserAccount')}}" method="POST" class="col-sm-7 col-md-6 col-lg-4 col-12 p-3 d-flex flex-column border rounded-3    ">
             @csrf
             @method('POST')
             @if ($errors -> any())
