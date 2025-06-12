@@ -43,7 +43,7 @@
                     <div class="card mb-4">
                         <div class="card-body d-flex align-items-center justify-content-center flex-column">
                             <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 100px; height: 100px; background-color: {{ $bgColor }};">
-                                <p class="pt-2 display-4" style="color: {{ $textColor }};">{{$initial}}</p>
+                                <p class="pt-2 display-4 text-light" style="font-size: 54px;">{{$initial}}</p>
                             </div>
                             <h5 class="my-3">{{Auth::user()->first_name}} {{Auth::user()->middle_name}}</h5>
                             <p class="text-muted mb-1">{{Auth::user() -> role -> role_name}}</p>
