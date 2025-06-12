@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\ActivityLog;
 
 class UserController extends Controller
 {
@@ -18,6 +19,11 @@ class UserController extends Controller
         // Пытаемся залогиниться
         if (Auth::attempt($fillable, $request->remember)) {
             $user = Auth::user();
+            ActivityLog::create([
+                'user_id' => $user->id,
+                'action' => 'login',
+                'ip_address' => $request->ip(),
+            ]);
 
             if ($user->is_active == 0) {
                 return redirect()->route('passChange');
@@ -33,8 +39,16 @@ class UserController extends Controller
     }
 
     public function logout() {
+        $user = Auth::user();
         Auth::logout();
-        return redirect() -> route('home');
+        if ($user) {
+            ActivityLog::create([
+                'user_id' => $user->id,
+                'action' => 'logout',
+                'ip_address' => request()->ip(),
+            ]);
+        }
+        return redirect()->route('home');
     }
 
     public function userPassChange (Request $request) {
@@ -68,7 +82,13 @@ class UserController extends Controller
             'roleID' => 'required',
         ]);
 
-        User::create($fillable);
+        $user = User::create($fillable);
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'action' => "created user {$user->id}",
+            'ip_address' => $request->ip(),
+        ]);
+
         return response()->json(['message' => 'Пользователь успешно добавлен']);
     }
 }

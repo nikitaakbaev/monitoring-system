@@ -35,6 +35,9 @@
                             <a class="nav-link @if(Route::is('profileUser')) active text-decoration-underline @endif" href="{{Route('profileUser')}}">{{Auth::user() -> middle_name}}</a>
                         </li>
                         @if (Auth::user()->roleID == 1)
+                            <li class="nav-item">
+                                <a class="nav-link @if(Route::is('admin.dashboard')) active text-decoration-underline @endif" href="{{ route('admin.dashboard') }}">Админ</a>
+                            </li>
                             <li class="nav-item ">
                                 <a class="nav-link @if(Route::is('createUser')) active text-decoration-underline @endif" href="{{Route('createUser')}}">Добавить пользователя</a>
                             </li>

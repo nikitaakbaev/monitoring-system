@@ -1,5 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+export function initCreateUserForm() {
     const form = document.getElementById('addUserForm');
+    if (!form) return;
+
     const responseDiv = document.getElementById('response');
 
     form.addEventListener('submit', async (e) => {
@@ -37,4 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(error);
         }
     });
-});
+}
+
+document.addEventListener('DOMContentLoaded', initCreateUserForm);

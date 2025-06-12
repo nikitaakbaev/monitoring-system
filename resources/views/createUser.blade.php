@@ -17,7 +17,7 @@
             <div class="alert alert-success d-none" id="response"></div>
             <div class="mb-3">
                 <label for="first_name" class="form-label">Фамилия</label>
-                <input type="text" name="first_name" id="first_name" class="form-control" value="{{old('first_name"')}}">
+                <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}">
             </div>
             <div class="mb-3">
                 <label for="middle_name" class="form-label">Имя</label>
