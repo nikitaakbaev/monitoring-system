@@ -19,7 +19,7 @@ class UserController extends Controller
         // Пытаемся залогиниться
         if (Auth::attempt($fillable, $request->remember)) {
             $user = Auth::user();
-            ActivityLog::create([
+            ActivityLog::safeCreate([
                 'user_id' => $user->id,
                 'action' => 'login',
                 'ip_address' => $request->ip(),
@@ -42,7 +42,7 @@ class UserController extends Controller
         $user = Auth::user();
         Auth::logout();
         if ($user) {
-            ActivityLog::create([
+            ActivityLog::safeCreate([
                 'user_id' => $user->id,
                 'action' => 'logout',
                 'ip_address' => request()->ip(),
@@ -83,7 +83,7 @@ class UserController extends Controller
         ]);
 
         $user = User::create($fillable);
-        ActivityLog::create([
+        ActivityLog::safeCreate([
             'user_id' => auth()->id(),
             'action' => "created user {$user->id}",
             'ip_address' => $request->ip(),

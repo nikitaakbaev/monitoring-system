@@ -26,7 +26,7 @@ class AdminController extends Controller
         $user->is_active = false;
         $user->save();
 
-        ActivityLog::create([
+        ActivityLog::safeCreate([
             'user_id' => auth()->id(),
             'action' => "blocked user {$user->id}",
             'ip_address' => request()->ip(),
@@ -39,7 +39,7 @@ class AdminController extends Controller
     {
         $user->delete();
 
-        ActivityLog::create([
+        ActivityLog::safeCreate([
             'user_id' => auth()->id(),
             'action' => "deleted user {$user->id}",
             'ip_address' => request()->ip(),
@@ -61,7 +61,7 @@ class AdminController extends Controller
         $user->roleID = $request->roleID;
         $user->save();
 
-        ActivityLog::create([
+        ActivityLog::safeCreate([
             'user_id' => auth()->id(),
             'action' => "updated role for user {$user->id}",
             'ip_address' => $request->ip(),
@@ -87,7 +87,7 @@ class AdminController extends Controller
             NotificationSetting::updateOrCreate(['setting_key' => $key], ['setting_value' => $value]);
         }
 
-        ActivityLog::create([
+        ActivityLog::safeCreate([
             'user_id' => auth()->id(),
             'action' => 'updated notification settings',
             'ip_address' => $request->ip(),

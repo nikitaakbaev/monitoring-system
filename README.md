@@ -84,6 +84,8 @@ php artisan migrate
 php artisan db:seed
 ```
 
+Это создаст все необходимые таблицы, включая `activity_logs` для журналирования действий.
+
 ### 4. Запустите сервер
 
 ```bash
