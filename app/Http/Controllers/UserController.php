@@ -69,6 +69,6 @@ class UserController extends Controller
         ]);
 
         User::create($fillable);
-        return back() -> withInput();
+        return response()->json(['message' => 'Пользователь успешно добавлен']);
     }
 }

@@ -53,5 +53,13 @@
 </main>
 <footer></footer>
 <script src="{{asset('assets/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script>
+    window.Laravel = {
+        csrfToken: '{{ csrf_token() }}',
+        routes: {
+            createUser: '{{ route("createUserAccount") }}',
+        }
+    };
+</script>
 </body>
 </html>

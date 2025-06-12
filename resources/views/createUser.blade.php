@@ -1,6 +1,6 @@
 <x-layout>
     <div class="d-flex justify-content-center align-items-center h-100">
-        <form action="{{Route('createUserAccount')}}" method="POST" class="col-sm-7 col-md-6 col-lg-4 col-12 p-3 d-flex flex-column border rounded-3    ">
+        <form action="{{Route('createUserAccount')}}" method="POST" class="col-sm-7 col-md-6 col-lg-4 col-12 p-3 d-flex flex-column border rounded-3" id="addUserForm">
             @csrf
             @method('POST')
             @if ($errors -> any())
@@ -14,6 +14,7 @@
                     </ul>
                 </div>
             @endif
+            <div class="alert alert-success d-none" id="response"></div>
             <div class="mb-3">
                 <label for="first_name" class="form-label">Фамилия</label>
                 <input type="text" name="first_name" id="first_name" class="form-control" value="{{old('first_name"')}}">
