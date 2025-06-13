@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await res.json();
 
-            responseDiv.innerHTML = `<ul><li>${data.message}</li></ul>`;
+            responseDiv.innerHTML = `<p>${data.message}<p>`;
             responseDiv.classList.remove('d-none');
         } catch (error) {
             responseDiv.innerHTML = `<p>Ошибка при добавлении пользователя.</p>`;

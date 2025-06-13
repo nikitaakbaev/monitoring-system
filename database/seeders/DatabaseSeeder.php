@@ -24,10 +24,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Role::create([
-            'role_name' => 'Ученик',
-        ]);
-
-        Role::create([
             'role_name' => 'Родитель',
         ]);
 
@@ -35,7 +31,10 @@ class DatabaseSeeder extends Seeder
             'first_name' => 'Акбаев',
             'middle_name' => 'Никита',
             'last_name' => 'Алексеевич',
+            'birth_date' => '2004.09.19',
             'email' => 'test@example.com',
+            'phone' => '',
+            'address' => '',
             'password' => 'AdOa2839!',
             'roleID' => 1,
             'is_active' => true,

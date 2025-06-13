@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -70,5 +71,72 @@ class UserController extends Controller
 
         User::create($fillable);
         return response()->json(['message' => 'Пользователь успешно добавлен']);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        // Если хочешь — можно сделать валидацию:
+        $validated = $request->validate([
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'birth_date' => 'nullable|date',
+            'phone' => 'nullable|string|max:50',
+            'address' => 'nullable|string|max:255',
+        ]);
+        $user->first_name = $validated['first_name'];
+        $user->middle_name = $validated['middle_name'];
+        $user->last_name = $validated['last_name'];
+        $user->email = $validated['email'];
+        $user->birth_date = $validated['birth_date'];
+        $user->phone = $request->phone ?? '';
+        $user->address = $request->address ?? '';
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Профиль успешно обновлен!');
+    }
+
+    public function userUpdate(Request $request)
+    {
+        $roles = Role::all();
+        $query = User::with('role');
+
+        if ($request->filled('name')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('first_name', 'like', '%' . $request->name . '%')
+                    ->orWhere('middle_name', 'like', '%' . $request->name . '%')
+                    ->orWhere('last_name', 'like', '%' . $request->name . '%');
+            });
+        }
+
+        if ($request->filled('role')) {
+            $query->where('roleID', $request->role);
+        }
+
+        $users = $query->get();
+
+        return view('usersList', compact('users', 'roles'));
+    }
+
+    public function updateUser(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'first_name'  => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name'   => 'required|string|max:255',
+            'birth_date'  => 'nullable|date',
+            'email'       => 'required|email|max:255|unique:users,email,' . $user->id,
+            'phone'       => 'nullable|string|max:255',
+            'address'     => 'nullable|string|max:255',
+            'roleID'      => 'required|exists:roles,id',
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('usersList')->with('success', 'Пользователь успешно обновлён.');
     }
 }

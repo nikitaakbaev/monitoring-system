@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{env('APP_NAME')}}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 
 </head>
 <body class="h-100 d-flex flex-column">
@@ -35,13 +35,25 @@
                             <a class="nav-link @if(Route::is('profileUser')) active text-decoration-underline @endif" href="{{Route('profileUser')}}">{{Auth::user() -> middle_name}}</a>
                         </li>
                         @if (Auth::user()->roleID == 1)
-                            <li class="nav-item ">
-                                <a class="nav-link @if(Route::is('createUser')) active text-decoration-underline @endif" href="{{Route('createUser')}}">Добавить пользователя</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle @if(Route::is('createUser') || Route::is('usersList')) active text-decoration-underline @endif"
+                                   href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Пользователи
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <li>
+                                        <a class="dropdown-item @if(Route::is('createUser')) active @endif" href="{{ Route('createUser') }}">
+                                            Добавить пользователя
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item @if(Route::is('usersList')) active @endif" href="{{ Route('usersList') }}">
+                                            Редактирование пользователей
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         @endif
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{Route('logout')}}">Выйти</a>
-                        </li>
                     @endauth
                 </ul>
             </div>
@@ -52,7 +64,7 @@
     {{$slot}}
 </main>
 <footer></footer>
-<script src="{{asset('assets/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 <script>
     window.Laravel = {
         csrfToken: '{{ csrf_token() }}',

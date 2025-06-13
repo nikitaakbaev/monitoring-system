@@ -10,6 +10,8 @@ Route::middleware(Admin::class)->group( function () {
         return view('createUser');
     }) -> name('createUser');
     Route::post('/createUserAccount', [UserController::class, 'createUserAccount']) -> name('createUserAccount');
+    Route::get('/usersList', [UserController::class, 'userUpdate'])->name('usersList');
+    Route::put('/users/{user}', [UserController::class, 'updateUser'])->name('users.update');
 });
 
 Route::middleware('guest')->group( function () {
@@ -30,7 +32,10 @@ Route::middleware('auth')->group( function () {
         Route::get('/passChange', function () {
             return view('passChange');
         })->name('passChange');
+
         Route::post('/userPassChange', [UserController::class, 'userPassChange'])->name('userPassChange');
+
     });
     Route::get('/logout', [UserController::class, 'logout']) -> name('logout');
+    Route::post('/updateProfile', [UserController::class, 'updateProfile']) -> name('updateProfile');
 });

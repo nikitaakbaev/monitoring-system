@@ -32,8 +32,7 @@
                 <select class="form-select" name="roleID" id="role">
                     <option value="1">Админ</option>
                     <option value="2">Учитель</option>
-                    <option value="3">Ученик</option>
-                    <option value="4">Родитель</option>
+                    <option value="3">Родитель</option>
                 </select>
             </div>
             <div class="mb-3">
