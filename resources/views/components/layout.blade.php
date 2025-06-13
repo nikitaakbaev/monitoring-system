@@ -8,7 +8,6 @@
     <title>{{env('APP_NAME')}}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-
 </head>
 <body class="h-100 d-flex flex-column">
 <header>
@@ -53,6 +52,26 @@
                                     </li>
                                 </ul>
                             </li>
+                                @if (Auth::user()->roleID == 1 || Auth::user()->roleID == 2)
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle @if(Route::is('createUser') || Route::is('usersList')) active text-decoration-underline @endif"
+                                           href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Пользователи
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                            <li>
+                                                <a class="dropdown-item @if(Route::is('createUser')) active @endif" href="{{ Route('createUser') }}">
+                                                    Добавить пользователя
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item @if(Route::is('usersList')) active @endif" href="{{ Route('usersList') }}">
+                                                    Редактирование пользователей
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
                         @endif
                     @endauth
                 </ul>
@@ -70,6 +89,7 @@
         csrfToken: '{{ csrf_token() }}',
         routes: {
             createUser: '{{ route("createUserAccount") }}',
+            updateProfile: '{{ route("updateProfile") }}',
         }
     };
 </script>

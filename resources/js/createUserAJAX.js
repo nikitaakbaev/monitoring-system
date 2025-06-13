@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('addUserForm');
-    const responseDiv = document.getElementById('response');
+    const responseDiv = document.getElementById('addUserResponse');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();

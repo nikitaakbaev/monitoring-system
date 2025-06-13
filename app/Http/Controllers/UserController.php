@@ -97,7 +97,19 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Профиль успешно обновлен!');
+        return response()->json([
+            'message' => 'Профиль успешно обновлён!',
+            'updated' => [
+                'first_name' => $user->first_name,
+                'middle_name' => $user->middle_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'birth_date' => $user->birth_date ? \Carbon\Carbon::parse($user->birth_date)->format('Y-m-d') : null,
+                'phone' => $user->phone,
+                'address' => $user->address,
+            ]
+        ]);
+
     }
 
     public function userUpdate(Request $request)
